@@ -27,7 +27,7 @@ fileCheck <- function(filename){
     if (!file.exists(filename)){
         stop("Could not find specified BAM/SAM file.")
     }
-  
+    
     #verify file is sam or bam. if sam, convert to bam
     file.name <- BiocGenerics::unlist(Biostrings::strsplit(filename, '[.]'))
     if (utils::tail(file.name, n=1)=='bam'){
@@ -38,9 +38,9 @@ fileCheck <- function(filename){
     } else {
         stop("Invalid file format. Accepted file types are BAM and SAM.")
     }
-  
+    
     return(bf)
-  }
+}
 
 #' Genome Checking
 #' 
@@ -69,7 +69,7 @@ genomeCheck <- function(gnm){
         stop("Unsupported genome. Available genome options are 
             hg19, hg38, and GRCh38.")
     }
-  
+    
     return(g)
 }
 
@@ -128,7 +128,7 @@ alterReads <- function(idx, cdf){
     #string of dashes of the correct length
     dashes <- BiocGenerics::paste(replicate(as.integer(cdf[idx,1]), "-"), 
                                     collapse = "")
-  
+    
     if (cdf[idx,2] =='I'){
         #insert dashes into ref sequence
         pkg.env$alignedref<- 
@@ -158,6 +158,27 @@ alterReads <- function(idx, cdf){
     }
 }
 
+#' Show the Alignment
+#' 
+#' In the case of only one read being considered, this function prints
+#' the CIGAR string along with the aligned read to the reference genome.
+#' 
+#' @usage showAlignment(cigar)
+#' @param cigar CIGAR string associated with a read
+#' @returns Nothing
+#' @author Fateema Bazzi\cr Politecnico di Milano\cr Maintainer: Fateema 
+#' Bazzi\cr E-Mail: <fateemahani.bazzi@@mail.polimi.it>
+#' @seealso \code{\link{alignment}}\cr
+#' @keywords internal
+
+showAlignment<- function(cigar){ 
+  #print aligned read
+  print(paste0("CIGAR: ", cigar))
+  print(paste0("Ref.: ", pkg.env$alignedref))
+  print(paste0("Read: ", pkg.env$alignedread))
+  
+}
+
 #' Alignment
 #' 
 #' This function sends the read and reference sequence to be aligned 
@@ -183,29 +204,26 @@ alignment <- function(cigar, cigardf, read, ref, makedf){
     #I: add dashes to the reference seq
     #D, P, N: add dashes to the read seq
     #H: add dashes to beginning/end of the read seq
-  
+     
     #define as global variables so they can be properly altered with lapply
     pkg.env$alignedread <-read
     pkg.env$alignedref <-ref
-  
+    
     #find indexes where dashes are being inserted
     idxchng <- which(cigardf[,2]!='M'&cigardf[,2]!='X'&
                     cigardf[,2]!='='&cigardf[,2]!='S')
-  
+    
     #apply alterations using the indexes that call for it
     BiocGenerics::lapply(idxchng, alterReads, cdf=cigardf)
-  
+    
     if (makedf){
         row <- data.frame(cigar, pkg.env$alignedref, pkg.env$alignedread)
         names(row) <- c("CIGAR", "Ref.", "Read")
         pkg.env$aligndf <- rbind(pkg.env$aligndf, row)
     } else{ #print
-        #print aligned read
-        print(paste0("CIGAR: ", cigar))
-        print(paste0("Ref.: ", pkg.env$alignedref))
-        print(paste0("Read: ", pkg.env$alignedread))
+        showAlignment(cigar)
     }
-  
+    
 }
 
 
@@ -235,7 +253,7 @@ pipeline<- function(read, makedf=FALSE, gnm){ #read is the entire row from bam
     cig <- read['cigar'][[1]] #CIGAR string
     readseq <- read['seq'][[1]] #read seq
     cigdf <- cigarReader(cig) #CIGAR string in readable format
-  
+    
     #Account for any beginning hard clipping offset
     hoffset<- 0
     if (cigdf[1,2]=='H'){
@@ -245,10 +263,9 @@ pipeline<- function(read, makedf=FALSE, gnm){ #read is the entire row from bam
     ir <- IRanges::IRanges((as.integer(read['pos'][[1]])-hoffset),
                             width = sum(as.integer(cigdf[,1])))
     range <- GenomicRanges::GRanges(read['rname'][[1]],ir)
-  
+    
     refseq <- Biostrings::getSeq(gnm,range)
-  
-  
+    
     alignment(cig, cigdf, readseq, as.character(refseq), makedf)
-  
+    
 }

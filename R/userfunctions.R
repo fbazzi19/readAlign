@@ -28,24 +28,24 @@
 alignRead <- function(bamf, gnm="hg19", readidx){
     #send file to function to ensure it is acceptable
     bf <- fileCheck(bamf)
-  
+    
     #get the proper genome from helper function
     g <- genomeCheck(gnm)
-  
-  
+    
+    
     #--preprocessing--
     bam <- Rsamtools::scanBam(bf)
     #make dataframe
     bamdf <- BiocGenerics::as.data.frame(bam[[1]])
-  
+    
     #check if user specified read is NA
     if (is.na(bamdf[readidx,]$cigar)) {
         stop("CIGAR string not available for specified read.")
     }
-  
+    
     #grab desired read
     read <- bamdf[readidx,]
-  
+    
     #read and corresponding reference sequence through the pipeline
     pipeline(read, gnm = g)
 }
@@ -80,23 +80,23 @@ alignRead <- function(bamf, gnm="hg19", readidx){
 alignAllReads <- function(bamf, gnm="hg19"){
     #send file to function to ensure it is acceptable
     bf <- fileCheck(bamf)
-  
+    
     #get the proper genome from helper function
     g <- genomeCheck(gnm)
-  
+    
     #--preprocessing--
     bam <- scanBam(bf)
     #make dataframe
     bamdf <- BiocGenerics::as.data.frame(bam[[1]])
-  
+    
     #remove NA
     bamdf <- bamdf[,!names(bamdf) %in% 
                     c("mrnm", "mpos")]
     bamdf <- stats::na.omit(bamdf)
     rownames(bamdf) <- seq_len(nrow(bamdf))
-  
+    
     #send each row through the pipeline
     apply(bamdf, 1, pipeline, makedf=TRUE, gnm=g)
-  
+    
     return(pkg.env$aligndf)
 }
