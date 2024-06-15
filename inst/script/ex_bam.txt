@@ -1,0 +1,3 @@
+ex_bam.bam
+
+ex_bam.bam is a BAM file containing reads of 150 base pairs mapped to chromosome M of the hg38 Human Genome, available at https://hgdownload.cse.ucsc.edu/goldenpath/hg38/chromosomes/.
