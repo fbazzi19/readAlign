@@ -41,6 +41,14 @@ Lawrence M, Huber W, Pages H, Aboyoun P, Carlson M, et al.\cr
 PLoS Comput Biol 9(8): e1003118.\cr
 doi:10.1371/journal.pcbi.1003118
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/fbazzi19/readAlign}
+  \item Report bugs at \url{https://github.com/fbazzi19/readAlign/issues}
+}
+
+}
 \author{
 Fateema Bazzi\cr
 Politecnico di Milano\cr

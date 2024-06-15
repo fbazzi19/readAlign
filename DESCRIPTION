@@ -6,8 +6,11 @@ Authors@R:
     email = "fateemahani.bazzi@mail.polimi.it", role = c("aut", "cre"),
     comment = c(ORCID = "0009-0002-8160-4262"))
 Description: This package takes a BAM or SAM file along with the corresponding
-    reference genome and produces the precise alignment of one specific read or all
-    reads, according to the read's CIGAR string.
+    reference genome and produces the precise alignment of one specific read or 
+    all reads, according to the read's CIGAR string. If the file is a SAM file,
+    the package will first convert it to a BAM file, which will be stored in the
+    same directory as the BAM file. Functions will either omit NA values or
+    return an error.
 License: GPL-2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -17,5 +20,7 @@ Imports: Rsamtools, GenomicRanges, Biostrings, BSgenome.Hsapiens.UCSC.hg19,
     BSgenome.Hsapiens.UCSC.hg38, BSgenome.Hsapiens.NCBI.GRCh38, IRanges,
     BiocGenerics, stats, utils
 Suggests: knitr, rmarkdown, BiocStyle
-biocViews: Alignment, Genome, SequencingData
+biocViews: SequenceMatching, Sequencing, Alignment
 VignetteBuilder: knitr
+URL: https://github.com/fbazzi19/readAlign
+BugReports: https://github.com/fbazzi19/readAlign/issues

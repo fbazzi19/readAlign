@@ -11,6 +11,9 @@ alterReads(idx, cdf)
 
 \item{cdf}{CIGAR dataframe, output from cigarreader}
 }
+\value{
+Nothing
+}
 \description{
 This function takes the CIGAR dataframe and a row in the
 dataframe that indicates changes needed for alignment, and alters

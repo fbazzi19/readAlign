@@ -13,6 +13,9 @@ pipeline(read, makedf, gnm)
 
 \item{gnm}{reference genome reads are aligned to}
 }
+\value{
+Nothing
+}
 \description{
 This function gets the relevant information from the read,
 generates the CIGAR dataframe, finds the corresponding reference

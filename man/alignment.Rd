@@ -17,6 +17,9 @@ alignment(cigar, cigardf, read, ref, makedf)
 
 \item{makedf}{bool indicating if a dataframe of the results should be made}
 }
+\value{
+Nothing
+}
 \description{
 This function sends the read and reference sequence to be aligned
 based on the CIGAR dataframe and either prints the alignment of

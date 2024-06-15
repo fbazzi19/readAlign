@@ -14,6 +14,9 @@ alignRead(bamf, gnm, readidx)
 
 \item{readidx}{index number of read to align}
 }
+\value{
+Nothing, prints the results of the alignment instead.
+}
 \description{
 This function aligns one specified read from a BAM or SAM file to
 the reference genome and prints out the resulting alignment. Function

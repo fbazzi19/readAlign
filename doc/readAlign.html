@@ -11,7 +11,7 @@
 
 <meta name="author" content="Fateema Bazzi" />
 
-<meta name="date" content="2024-06-14" />
+<meta name="date" content="2024-06-15" />
 
 <title>Showing the Alignment of a Mapped Read with readAlign</title>
 
@@ -703,7 +703,7 @@ function toggle_visibility(id1) {
 
 <h1 class="title toc-ignore">Showing the Alignment of a Mapped Read with readAlign</h1>
 <p class="author-name">Fateema Bazzi</p>
-<h4 class="date">2024-06-14</h4>
+<h4 class="date">2024-06-15</h4>
 
 </div>
 
@@ -724,22 +724,38 @@ function toggle_visibility(id1) {
 
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Sequence Alignment Map (SAM) files store biological sequences aligned to a reference sequence, along with relevant information regarding the alignment. Binary Alignment Map (BAM) files are the compressed binary versions of SAM files, readable by a computer but not human legible. One piece of information stored in these files for the sequences is the CIGAR string. CIGAR (Compact Ideosyncratic Gapped Alignment Report) strings are a representation of exactly how a sequence aligns to a reference. The <em>readAlign</em> package utilizes the CIGAR strings to show the precise alignment of a read to the reference genome.</p>
+<p>Sequence Alignment Map (SAM) files store biological sequences aligned
+to a reference sequence, along with relevant information regarding the
+alignment. Binary Alignment Map (BAM) files are the compressed binary
+versions of SAM files, readable by a computer but not human legible.
+One piece of information stored in these files for the sequences is
+the CIGAR string. CIGAR (Compact Ideosyncratic Gapped Alignment
+Report) strings are a representation of exactly how a sequence aligns
+to a reference. The <em>readAlign</em> package utilizes the
+CIGAR strings to show the precise alignment of a read to the reference
+genome.</p>
 </div>
 <div id="sam-or-bam" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> SAM or BAM</h1>
-<p>The <em>readAlign</em> package can handle both SAM and BAM file types, but it should be noted that if given a SAM file, the file will be automatically converted to BAM and stored in the same directory as the SAM file.</p>
+<p>The <em>readAlign</em> package can handle both SAM and BAM file
+types, but it should be noted that if given a SAM file, the file will
+be automatically converted to BAM and stored in the same directory as
+the SAM file.</p>
 </div>
 <div id="genome" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Genome</h1>
-<p>For the time being, the <em>readAlign</em> package works only with SAM or BAM files having GRCh38, UCSC hg19, or UCSC hg38 as reference genomes.</p>
+<p>For the time being, the <em>readAlign</em> package works only
+with SAM or BAM files having GRCh38, UCSC hg19, or UCSC hg38 as
+reference genomes.</p>
 </div>
 <div id="alignment" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> Alignment</h1>
 <div id="retrieving-the-alignment-of-one-read" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Retrieving the Alignment of One Read</h2>
-<p>To retrieve the alignment of one read, simply specify the which number read within the file for which the alignment is wanted, as such:</p>
-<pre class="r"><code>alignRead(system.file(&quot;extdata&quot;, &quot;ex_bam.bam&quot;, package = &quot;readAlign&quot;),&quot;hg38&quot;, 1)</code></pre>
+<p>To retrieve the alignment of one read, simply specify the which number
+read within the file for which the alignment is wanted, as such:</p>
+<pre class="r"><code>    alignRead(system.file(&quot;extdata&quot;, &quot;ex_bam.bam&quot;, 
+                            package = &quot;readAlign&quot;),&quot;hg38&quot;, 1)</code></pre>
 <pre><code>## [1] &quot;CIGAR: 150M&quot;
 ## [1] &quot;Ref.: TCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCATTTGGTATTTTCGTCTGGGGGGTATGCACGCGATAGCATTGCGAGACGCTGGAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATCCT&quot;
 ## [1] &quot;Read: TCACAGGTCTATCACCCTATTAACCACTCACGGGAGCTCTCCATGCATTTGGTATTTTCGTCTGGGGGGTATGCACGCGATAGCATTGCGAGACGCTGGAGCCGGAGCACCCTATGTCGCAGTATCTGTCTTTGATTCCTGCCTCATCGT&quot;</code></pre>
@@ -747,14 +763,18 @@ function toggle_visibility(id1) {
 </div>
 <div id="retrieving-the-alignment-of-all-reads" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Retrieving the Alignment of All Reads</h2>
-<p>To retrieve the alignment of all the reads within the SAM or BAM file, there is an alternative function:</p>
-<pre class="r"><code>alignAllReads(system.file(&quot;extdata&quot;, &quot;ex_bam.bam&quot;, package = &quot;readAlign&quot;),&quot;hg38&quot;)</code></pre>
-<p>which returns the alignments in a data frame. Note however that depending on the size of the BAM/SAM file, this function may take a significant amount of time to run.</p>
+<p>To retrieve the alignment of all the reads within the SAM or BAM file,
+there is an alternative function:</p>
+<pre class="r"><code>    alignAllReads(system.file(&quot;extdata&quot;, &quot;ex_bam.bam&quot;, 
+                                package = &quot;readAlign&quot;),&quot;hg38&quot;)</code></pre>
+<p>which returns the alignments in a data frame. Note however that
+depending on the size of the BAM/SAM file, this function may take a
+significant amount of time to run.</p>
 </div>
 </div>
 <div id="session-information" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Session Information</h1>
-<pre class="r"><code>utils::sessionInfo()</code></pre>
+<pre class="r"><code>    utils::sessionInfo()</code></pre>
 <pre><code>## R version 4.4.0 (2024-04-24 ucrt)
 ## Platform: x86_64-w64-mingw32/x64
 ## Running under: Windows 11 x64 (build 22631)
@@ -776,7 +796,7 @@ function toggle_visibility(id1) {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] readAlign_0.0.0.9000 knitr_1.47           BiocStyle_2.32.0    
+## [1] readAlign_0.99.0 knitr_1.47       BiocStyle_2.32.0
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] sass_0.4.9                            

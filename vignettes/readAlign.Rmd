@@ -10,47 +10,67 @@ vignette: >
 ---
 
 ```{r style, echo = FALSE, results = 'asis'}
- library(BiocStyle)
+    library(BiocStyle)
 ```
 
 ```{r, echo = FALSE}
- library(knitr)
+    library(knitr)
 ```
 
 ```{r, echo=FALSE}
- library(readAlign)
+    library(readAlign)
 ```
 
 # Introduction
 
-Sequence Alignment Map (SAM) files store biological sequences aligned to a reference sequence, along with relevant information regarding the alignment. Binary Alignment Map (BAM) files are the compressed binary versions of SAM files, readable by a computer but not human legible. One piece of information stored in these files for the sequences is the CIGAR string. CIGAR (Compact Ideosyncratic Gapped Alignment Report) strings are a representation of exactly how a sequence aligns to a reference. The `r Rpackage("readAlign")` package utilizes the CIGAR strings to show the precise alignment of a read to the reference genome.
+Sequence Alignment Map (SAM) files store biological sequences aligned 
+to a reference sequence, along with relevant information regarding the
+alignment. Binary Alignment Map (BAM) files are the compressed binary
+versions of SAM files, readable by a computer but not human legible.
+One piece of information stored in these files for the sequences is
+the CIGAR string. CIGAR (Compact Ideosyncratic Gapped Alignment
+Report) strings are a representation of exactly how a sequence aligns
+to a reference. The `r Rpackage("readAlign")` package utilizes the
+CIGAR strings to show the precise alignment of a read to the reference
+genome.
 
 # SAM or BAM
-The `r Rpackage("readAlign")` package can handle both SAM and BAM file types, but it should be noted that if given a SAM file, the file will be automatically converted to BAM and stored in the same directory as the SAM file.
+The `r Rpackage("readAlign")` package can handle both SAM and BAM file
+types, but it should be noted that if given a SAM file, the file will
+be automatically converted to BAM and stored in the same directory as
+the SAM file.
 
 # Genome
-For the time being, the `r Rpackage("readAlign")` package works only with SAM or BAM files having GRCh38, UCSC hg19, or UCSC hg38 as reference genomes.
+For the time being, the `r Rpackage("readAlign")` package works only
+with SAM or BAM files having GRCh38, UCSC hg19, or UCSC hg38 as
+reference genomes.
 
 # Alignment
 
 ## Retrieving the Alignment of One Read
-To retrieve the alignment of one read, simply specify the which number read within the file for which the alignment is wanted, as such:
+To retrieve the alignment of one read, simply specify the which number
+read within the file for which the alignment is wanted, as such:
 
 ```{r}
-alignRead(system.file("extdata", "ex_bam.bam", package = "readAlign"),"hg38", 1)
+    alignRead(system.file("extdata", "ex_bam.bam", 
+                            package = "readAlign"),"hg38", 1)
 ```
 
 This will print the results out. 
 
 ## Retrieving the Alignment of All Reads
-To retrieve the alignment of all the reads within the SAM or BAM file, there is an alternative function:
+To retrieve the alignment of all the reads within the SAM or BAM file,
+there is an alternative function:
 
 ```{r eval=FALSE}
-alignAllReads(system.file("extdata", "ex_bam.bam", package = "readAlign"),"hg38")
+    alignAllReads(system.file("extdata", "ex_bam.bam", 
+                                package = "readAlign"),"hg38")
 ```
-which returns the alignments in a data frame. Note however that depending on the size of the BAM/SAM file, this function may take a significant amount of time to run.
+which returns the alignments in a data frame. Note however that
+depending on the size of the BAM/SAM file, this function may take a
+significant amount of time to run.
 
 # Session Information
 ```{r}
-utils::sessionInfo()
+    utils::sessionInfo()
 ```
