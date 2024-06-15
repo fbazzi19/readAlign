@@ -164,7 +164,7 @@ alterReads <- function(idx, cdf){
 #' based on the CIGAR dataframe and stores the alignment of the read
 #' in a DataFrame. 
 #' 
-#' @usage alignment(cigar, cigardf, read, ref, makedf)
+#' @usage alignment(cigar, cigardf, read, ref)
 #' @param cigar CIGAR string associated with a read
 #' @param cigardf dataframe of CIGAR string contents from cigarreader
 #' @param read read sequence from BAM file
@@ -210,7 +210,7 @@ alignment <- function(cigar, cigardf, read, ref){
 #' present at the start of a read, and sends all of this information
 #' the the alignment function.
 #' 
-#' @usage pipeline(read, makedf, gnm)
+#' @usage pipeline(read, gnm)
 #' @param read row from BAM file corresponding to the read being aligned
 #' @param gnm reference genome reads are aligned to
 #' @returns Nothing

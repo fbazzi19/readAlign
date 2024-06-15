@@ -4,7 +4,7 @@
 \alias{alignment}
 \title{Alignment}
 \usage{
-alignment(cigar, cigardf, read, ref, makedf)
+alignment(cigar, cigardf, read, ref)
 }
 \arguments{
 \item{cigar}{CIGAR string associated with a read}

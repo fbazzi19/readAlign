@@ -4,7 +4,7 @@
 \alias{pipeline}
 \title{Pipeline}
 \usage{
-pipeline(read, makedf, gnm)
+pipeline(read, gnm)
 }
 \arguments{
 \item{read}{row from BAM file corresponding to the read being aligned}
