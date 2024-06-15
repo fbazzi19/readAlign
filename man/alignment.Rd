@@ -14,16 +14,14 @@ alignment(cigar, cigardf, read, ref, makedf)
 \item{read}{read sequence from BAM file}
 
 \item{ref}{reference sequence from genome corresponding to read}
-
-\item{makedf}{bool indicating if a dataframe of the results should be made}
 }
 \value{
 Nothing
 }
 \description{
 This function sends the read and reference sequence to be aligned
-based on the CIGAR dataframe and either prints the alignment of
-a single read or stores the alignments of the reads
+based on the CIGAR dataframe and stores the alignment of the read
+in a DataFrame.
 }
 \seealso{
 \code{\link{cigarReader}}\cr

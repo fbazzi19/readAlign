@@ -1,11 +1,12 @@
 #' Align Read
 #' 
 #' This function aligns one specified read from a BAM or SAM file to 
-#' the reference genome and prints out the resulting alignment. Function
-#' will return an error in the case that the CIGAR string is not available
-#' for the read. In the case of a SAM file, the function will first 
-#' create a corresponding BAM file, which will be saved in the same 
-#' location as the SAM file.
+#' the reference genome and stores the resulting alignment in a 
+#' DataFrame along with printing it. Function will return an error in 
+#' the case that the CIGAR string is not available for the read. In 
+#' the case of a SAM file, the function will first create a 
+#' corresponding BAM file, which will be saved in the same location 
+#' as the SAM file.
 #' 
 #' 
 #' @usage alignRead(bamf, gnm, readidx)
@@ -13,7 +14,7 @@
 #' @param gnm which reference genome to use, accepted options are "hg19",
 #' "hg38", or "GRCh38"
 #' @param readidx index number of read to align
-#' @returns Nothing, prints the results of the alignment instead.
+#' @returns DataFrame containing the results of the alignment
 #' @author Fateema Bazzi\cr Politecnico di Milano\cr Maintainer: Fateema 
 #' Bazzi\cr E-Mail: <fateemahani.bazzi@@mail.polimi.it>
 #' @seealso \code{\link{alignAllReads}}\cr
@@ -48,6 +49,11 @@ alignRead <- function(bamf, gnm="hg19", readidx){
     
     #read and corresponding reference sequence through the pipeline
     pipeline(read, gnm = g)
+    
+    print(paste0("CIGAR: ", pkg.env$aligndf[1,1]))
+    print(paste0("Ref.: ", pkg.env$aligndf[1,2]))
+    print(paste0("Read: ", pkg.env$aligndf[1,3]))
+    return(pkg.env$aligndf)
 }
 
 #' Align All Reads
@@ -96,7 +102,7 @@ alignAllReads <- function(bamf, gnm="hg19"){
     rownames(bamdf) <- seq_len(nrow(bamdf))
     
     #send each row through the pipeline
-    apply(bamdf, 1, pipeline, makedf=TRUE, gnm=g)
+    apply(bamdf, 1, pipeline, gnm=g)
     
     return(pkg.env$aligndf)
 }

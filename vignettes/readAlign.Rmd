@@ -56,7 +56,8 @@ read within the file for which the alignment is wanted, as such:
                             package = "readAlign"),"hg38", 1)
 ```
 
-This will print the results out. 
+This will return a data frame with the alignment, and print out the 
+results. 
 
 ## Retrieving the Alignment of All Reads
 To retrieve the alignment of all the reads within the SAM or BAM file,

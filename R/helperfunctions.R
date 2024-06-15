@@ -158,39 +158,17 @@ alterReads <- function(idx, cdf){
     }
 }
 
-#' Show the Alignment
-#' 
-#' In the case of only one read being considered, this function prints
-#' the CIGAR string along with the aligned read to the reference genome.
-#' 
-#' @usage showAlignment(cigar)
-#' @param cigar CIGAR string associated with a read
-#' @returns Nothing
-#' @author Fateema Bazzi\cr Politecnico di Milano\cr Maintainer: Fateema 
-#' Bazzi\cr E-Mail: <fateemahani.bazzi@@mail.polimi.it>
-#' @seealso \code{\link{alignment}}\cr
-#' @keywords internal
-
-showAlignment<- function(cigar){ 
-  #print aligned read
-  print(paste0("CIGAR: ", cigar))
-  print(paste0("Ref.: ", pkg.env$alignedref))
-  print(paste0("Read: ", pkg.env$alignedread))
-  
-}
-
 #' Alignment
 #' 
 #' This function sends the read and reference sequence to be aligned 
-#' based on the CIGAR dataframe and either prints the alignment of
-#' a single read or stores the alignments of the reads 
+#' based on the CIGAR dataframe and stores the alignment of the read
+#' in a DataFrame. 
 #' 
 #' @usage alignment(cigar, cigardf, read, ref, makedf)
 #' @param cigar CIGAR string associated with a read
 #' @param cigardf dataframe of CIGAR string contents from cigarreader
 #' @param read read sequence from BAM file
 #' @param ref reference sequence from genome corresponding to read
-#' @param makedf bool indicating if a dataframe of the results should be made
 #' @returns Nothing
 #' @author Fateema Bazzi\cr Politecnico di Milano\cr Maintainer: Fateema 
 #' Bazzi\cr E-Mail: <fateemahani.bazzi@@mail.polimi.it>
@@ -199,7 +177,7 @@ showAlignment<- function(cigar){
 #' @importFrom BiocGenerics lapply
 #' @keywords internal
 
-alignment <- function(cigar, cigardf, read, ref, makedf){
+alignment <- function(cigar, cigardf, read, ref){
     #M, =, X, S: leave as is
     #I: add dashes to the reference seq
     #D, P, N: add dashes to the read seq
@@ -216,13 +194,10 @@ alignment <- function(cigar, cigardf, read, ref, makedf){
     #apply alterations using the indexes that call for it
     BiocGenerics::lapply(idxchng, alterReads, cdf=cigardf)
     
-    if (makedf){
-        row <- data.frame(cigar, pkg.env$alignedref, pkg.env$alignedread)
-        names(row) <- c("CIGAR", "Ref.", "Read")
-        pkg.env$aligndf <- rbind(pkg.env$aligndf, row)
-    } else{ #print
-        showAlignment(cigar)
-    }
+    #add alignment to a dataframe
+    row <- data.frame(cigar, pkg.env$alignedref, pkg.env$alignedread)
+    names(row) <- c("CIGAR", "Ref.", "Read")
+    pkg.env$aligndf <- rbind(pkg.env$aligndf, row)
     
 }
 
@@ -237,7 +212,6 @@ alignment <- function(cigar, cigardf, read, ref, makedf){
 #' 
 #' @usage pipeline(read, makedf, gnm)
 #' @param read row from BAM file corresponding to the read being aligned
-#' @param makedf bool indicating if a dataframe of the results should be made
 #' @param gnm reference genome reads are aligned to
 #' @returns Nothing
 #' @author Fateema Bazzi\cr Politecnico di Milano\cr Maintainer: Fateema 
@@ -249,7 +223,7 @@ alignment <- function(cigar, cigardf, read, ref, makedf){
 #' @importFrom Biostrings getSeq
 #' @keywords internal
 
-pipeline<- function(read, makedf=FALSE, gnm){ #read is the entire row from bam
+pipeline<- function(read, gnm){ #read is the entire row from bam
     cig <- read['cigar'][[1]] #CIGAR string
     readseq <- read['seq'][[1]] #read seq
     cigdf <- cigarReader(cig) #CIGAR string in readable format
@@ -266,6 +240,6 @@ pipeline<- function(read, makedf=FALSE, gnm){ #read is the entire row from bam
     
     refseq <- Biostrings::getSeq(gnm,range)
     
-    alignment(cig, cigdf, readseq, as.character(refseq), makedf)
+    alignment(cig, cigdf, readseq, as.character(refseq))
     
 }

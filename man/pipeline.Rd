@@ -9,8 +9,6 @@ pipeline(read, makedf, gnm)
 \arguments{
 \item{read}{row from BAM file corresponding to the read being aligned}
 
-\item{makedf}{bool indicating if a dataframe of the results should be made}
-
 \item{gnm}{reference genome reads are aligned to}
 }
 \value{
