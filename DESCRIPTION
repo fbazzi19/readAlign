@@ -11,7 +11,7 @@ Description: This package takes a BAM or SAM file along with the corresponding
     the package will first convert it to a BAM file, which will be stored in the
     same directory as the BAM file. Functions will either omit NA values or
     return an error.
-License: GPL-2
+License: file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
