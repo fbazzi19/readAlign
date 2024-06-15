@@ -2,7 +2,7 @@
 #' 
 #' This function aligns one specified read from a BAM or SAM file to 
 #' the reference genome and stores the resulting alignment in a 
-#' DataFrame along with printing it. Function will return an error in 
+#' DataFrame. Function will return an error in 
 #' the case that the CIGAR string is not available for the read. In 
 #' the case of a SAM file, the function will first create a 
 #' corresponding BAM file, which will be saved in the same location 
@@ -50,9 +50,6 @@ alignRead <- function(bamf, gnm="hg19", readidx){
     #read and corresponding reference sequence through the pipeline
     pipeline(read, gnm = g)
     
-    print(paste0("CIGAR: ", pkg.env$aligndf[1,1]))
-    print(paste0("Ref.: ", pkg.env$aligndf[1,2]))
-    print(paste0("Read: ", pkg.env$aligndf[1,3]))
     return(pkg.env$aligndf)
 }
 

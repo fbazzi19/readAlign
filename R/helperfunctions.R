@@ -66,8 +66,7 @@ genomeCheck <- function(gnm){
     } else if (gnm=="GRCh38"){
         g <- BSgenome.Hsapiens.NCBI.GRCh38::BSgenome.Hsapiens.NCBI.GRCh38
     } else {
-        stop("Unsupported genome. Available genome options are 
-            hg19, hg38, and GRCh38.")
+        stop("Unsupported genome. Available options are hg19, hg38 and GRCh38.")
     }
     
     return(g)
@@ -182,7 +181,7 @@ alignment <- function(cigar, cigardf, read, ref){
     #I: add dashes to the reference seq
     #D, P, N: add dashes to the read seq
     #H: add dashes to beginning/end of the read seq
-     
+    
     #define as global variables so they can be properly altered with lapply
     pkg.env$alignedread <-read
     pkg.env$alignedref <-ref

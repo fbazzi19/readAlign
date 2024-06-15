@@ -19,8 +19,13 @@ Depends: R(>= 4.4)
 Imports: Rsamtools, GenomicRanges, Biostrings, BSgenome.Hsapiens.UCSC.hg19, 
     BSgenome.Hsapiens.UCSC.hg38, BSgenome.Hsapiens.NCBI.GRCh38, IRanges,
     BiocGenerics, stats, utils
-Suggests: knitr, rmarkdown, BiocStyle
+Suggests: 
+    knitr,
+    rmarkdown,
+    BiocStyle,
+    testthat (>= 3.0.0)
 biocViews: SequenceMatching, Sequencing, Alignment
 VignetteBuilder: knitr
 URL: https://github.com/fbazzi19/readAlign
 BugReports: https://github.com/fbazzi19/readAlign/issues
+Config/testthat/edition: 3
