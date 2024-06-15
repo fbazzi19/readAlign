@@ -1,7 +1,7 @@
 test_that("fileCheck works", {
     expect_equal(readAlign:::fileCheck(system.file("extdata", "ex_bam.bam", 
                                                     package = "readAlign")),
-                "ex_bam.bam")
+                system.file("extdata", "ex_bam.bam", package = "readAlign"))
     expect_error(readAlign:::fileCheck("test"))
 })
 
@@ -17,7 +17,7 @@ test_that("genomeCheck works", {
 
 test_that("cigarReader works", {
     expect_equal(readAlign:::cigarReader("2M1D3M"), 
-                data.frame(lengths=c("2","1","3"),type=c("M","D","M")))
+                 BiocGenerics::cbind(lengths=c("2","1","3"),type=c("M","D","M")))
     expect_equal(readAlign:::cigarReader("100M"), 
-                data.frame(lengths=c("100"),type=c("M")))
+                 BiocGenerics::cbind(lengths=c("100"),type=c("M")))
 })

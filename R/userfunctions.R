@@ -87,6 +87,9 @@ alignAllReads <- function(bamf, gnm="hg19"){
     #get the proper genome from helper function
     g <- genomeCheck(gnm)
     
+    #ensure results data frame is empty
+    pkg.env$aligndf <- pkg.env$aligndf[0,]
+    
     #--preprocessing--
     bam <- scanBam(bf)
     #make dataframe

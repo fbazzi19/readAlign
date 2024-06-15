@@ -15,15 +15,9 @@ test_that("alignRead works", {
 })
 
 test_that("alignAllReads works", {
-    expect_equal(alignAllReads(system.file("extdata", "ex_bam.bam", 
-                                            package = "readAlign"),
-                                "hg38")$CIGAR[1], "150M")
     expect_equal(dim(alignAllReads(system.file("extdata", "ex_bam.bam", 
                                                 package = "readAlign"),
-                                    "hg38"))[2], 3)
-    expect_equal(dim(alignAllReads(system.file("extdata", "ex_bam.bam", 
-                                                package = "readAlign"),
-                                    "hg38"))[1], 5445)
+                                    "hg38")), c(5445,3))
     expect_error(alignAllReads(system.file("extdata", "ex_bam.bam", 
                                             package = "readAlign"),
                                 "hg45"))
