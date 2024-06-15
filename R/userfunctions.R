@@ -39,6 +39,9 @@ alignRead <- function(bamf, gnm="hg19", readidx){
     #make dataframe
     bamdf <- BiocGenerics::as.data.frame(bam[[1]])
     
+    #ensure results data frame is empty
+    pkg.env$aligndf <- pkg.env$aligndf[0,]
+    
     #check if user specified read is NA
     if (is.na(bamdf[readidx,]$cigar)) {
         stop("CIGAR string not available for specified read.")
